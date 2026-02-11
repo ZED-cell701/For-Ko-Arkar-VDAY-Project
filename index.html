@@ -47,7 +47,9 @@
                 <div class="overlay-text">Thanks for being by my side<br>through tough times of my life ❣️</div>
             </div>
             <div class="slide"><img src="photo 8.jpg"></div>
-            <div id="photo9" class="slide"><img src="photo9.JPG"></div>
+            <div id="photo9" style="position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s; transform: scale(1.08); transition: opacity 1.4s, transform 1.4s;">
+                <img src="photo9.JPG" style="width: 100%; height: 100%; object-fit: cover; border-radius: 22px;">
+            </div>
         </div>
 
         <div id="ending" class="ending hidden">
@@ -63,14 +65,12 @@
         </video>
     </div>
 
-    <audio id="loveSong" loop>
-        <source src="Keenan_Te_-_Where_You_Are_(mp3.pm).mp3" type="audio/mpeg">
-    </audio>
+    <audio id="loveSong" loop><source src="Keenan_Te_-_Where_You_Are_(mp3.pm).mp3" type="audio/mpeg"></audio>
     <canvas id="fireworks"></canvas>
 
     <script>
         const message = document.getElementById("message"), btn1 = document.getElementById("btn1"), btn2 = document.getElementById("btn2"), gallery = document.getElementById("gallery"), ending = document.getElementById("ending"), song = document.getElementById("loveSong"), videoSection = document.getElementById("videoSection"), loveVideo = document.getElementById("loveVideo");
-        let slides, index = 0;
+        let index = 0;
 
         const text = `To my ခွေးပုလေး 💘\nIt's already been 9 months together with you ❤️\nI will always love u, care u, protect u and be there for u\nHappy Valentine Day 💕`;
 
@@ -85,11 +85,16 @@
         btn2.onclick = () => { gallery.classList.remove("hidden"); message.classList.add("hidden"); btn2.classList.add("hidden"); slideshow(); }
 
         function slideshow() {
-            slides = document.querySelectorAll(".slide");
+            // slide class ပါတဲ့ ၈ ပုံကိုပဲ ယူပါမယ် (photo 9 မပါတော့ပါ)
+            const slides = document.querySelectorAll(".slide");
             const run = setInterval(() => {
                 slides[index].classList.remove("active");
                 index++;
-                if (index >= slides.length) { clearInterval(run); setTimeout(playVideo, 800); return; }
+                if (index >= slides.length) {
+                    clearInterval(run);
+                    setTimeout(playVideo, 800);
+                    return;
+                }
                 slides[index].classList.add("active");
             }, 2500);
         }
@@ -98,59 +103,4 @@
             gallery.classList.add("hidden");
             videoSection.classList.add("show");
             loveVideo.muted = false;
-            loveVideo.play();
-            // Video လာနေချိန်မှာ နောက်ခံသီချင်းကို ခေတ္တတိုးထားချင်ရင် ဒီမှာ song.volume = 0.2 လို့ ရေးလို့ရပါတယ်
-
-            loveVideo.onended = () => {
-                videoSection.classList.remove("show");
-                gallery.classList.remove("hidden");
-                slides.forEach(s => s.classList.remove("active"));
-                const p9 = document.getElementById("photo9");
-                if(p9) p9.classList.add("active");
-                
-                setTimeout(() => {
-                    gallery.classList.add("hidden");
-                    ending.classList.remove("hidden");
-                    // သီချင်းက ပထမကတည်းက ဖွင့်ထားတာမို့ ဒီမှာ ထပ်ဖွင့်စရာမလိုတော့ပါဘူး
-                    startFireworks();
-                }, 3000);
-            };
-        }
-
-        function updateDateCounter() {
-            const start = new Date(2025, 5, 10), now = new Date();
-            const days = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-            document.getElementById("dateCounter").innerHTML = `💞 We have been together for <b>${days}</b> days 💞`;
-        }
-        updateDateCounter();
-
-        const canvas = document.getElementById("fireworks"), ctx = canvas.getContext("2d");
-        let particles = [];
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener("resize", resizeCanvas); resizeCanvas();
-
-        function firework(x, y) {
-            for (let i = 0; i < 80; i++) {
-                particles.push({ x, y, angle: Math.random() * Math.PI * 2, speed: Math.random() * 5 + 2, life: 100, color: `hsl(${Math.random() * 360},100%,60%)` });
-            }
-        }
-
-        function startFireworks() {
-            setInterval(() => { firework(Math.random() * canvas.width, Math.random() * canvas.height / 2); }, 800);
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                p.x += Math.cos(p.angle) * p.speed; p.y += Math.sin(p.angle) * p.speed; p.life--;
-                ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
-                if (p.life <= 0) particles.splice(i, 1);
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        document.getElementById("replayBtn").onclick = () => location.reload();
-    </script>
-</body>
-</html>
+            loveVideo.
