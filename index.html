@@ -258,6 +258,7 @@
             </div>
 
             <div class="slide"><img src="photo 8.jpg"></div>
+            <div id="lastPhoto" class="slide"><img src="photo9.JPG"></div>
             
         </div>
 
@@ -282,10 +283,6 @@
             <source src="IMG_8748.mp4" type="video/mp4">
         </video>
     </div>
-    
-    <div class="slide">
-    <img src="photo9.JPG">
-</div>
     
 
     <audio id="loveSong">
@@ -361,6 +358,19 @@ Happy Valentine Day 💕`;
 
                 ending.classList.remove("hidden");
                 song.play();
+                loveVideo.onended = () => {
+                videoSection.classList.remove("show");
+                gallery.classList.remove("hidden");
+                
+                // Photo 9 ကိုပဲ ပြမယ်
+                slides.forEach(s => s.classList.remove("active"));
+                const lastPhoto = document.getElementById("lastPhoto");
+                if(lastPhoto) lastPhoto.classList.add("active");
+
+                setTimeout(() => {
+                    gallery.classList.add("hidden");
+                    ending.classList.remove("hidden");
+                    song.play();
 
                 // 🎆 fireworks start
                 setInterval(() => {
@@ -444,6 +454,7 @@ Happy Valentine Day 💕`;
 
 
 </html>
+
 
 
 
