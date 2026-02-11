@@ -348,37 +348,36 @@ Happy Valentine Day 💕`;
             }, 2500);
         }
 
-        function playVideo() {
+      function playVideo() {
             gallery.classList.add("hidden");
             videoSection.classList.add("show");
             loveVideo.muted = false;
             loveVideo.play();
+
             loveVideo.onended = () => {
-                videoSection.classList.remove("show");
+                videoSection.classList.remove("show"); // Video ပိတ်မယ်
+                gallery.classList.remove("hidden");    // Gallery ပြန်ပြမယ်
 
-                ending.classList.remove("hidden");
-                song.play();
-                loveVideo.onended = () => {
-                videoSection.classList.remove("show");
-                gallery.classList.remove("hidden");
-                
-                // Photo 9 ကိုပဲ ပြမယ်
+                // Slide တွေအကုန်ဖျောက်ပြီး photo9 ကိုပဲ ပြမယ်
                 slides.forEach(s => s.classList.remove("active"));
-                const lastPhoto = document.getElementById("lastPhoto");
-                if(lastPhoto) lastPhoto.classList.add("active");
+                const p9 = document.getElementById("photo9");
+                if(p9) p9.classList.add("active");
 
+                // ၃ စက္ကန့်ပြပြီးမှ Ending ကို သွားမယ်
                 setTimeout(() => {
                     gallery.classList.add("hidden");
                     ending.classList.remove("hidden");
                     song.play();
 
-                // 🎆 fireworks start
-                setInterval(() => {
-                    firework(
-                        Math.random() * canvas.width,
-                        Math.random() * canvas.height / 2
-                    );
-                }, 800);
+                    setInterval(() => {
+                        firework(
+                            Math.random() * canvas.width,
+                            Math.random() * canvas.height / 2
+                        );
+                    }, 800);
+                }, 3000); 
+            };
+        }
 
                 setTimeout(() => {
                     song.pause();                    // 50 sec ပြီးရင် ပိတ်
@@ -454,6 +453,7 @@ Happy Valentine Day 💕`;
 
 
 </html>
+
 
 
 
