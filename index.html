@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Happy Valentine ❤️</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         html, body { width: 100%; height: 100%; margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
         body { display: flex; justify-content: center; align-items: center; background: linear-gradient(-45deg, #ff5f6d, #ffc371, #ff9a9e, #fad0c4); background-size: 400% 400%; animation: bg 12s ease infinite; }
@@ -34,7 +32,6 @@
         <h1>Happy Valentine ပါ ခွေးပုလေး 😘</h1>
         <p id="dateCounter"></p>
         <p id="message"></p>
-
         <button id="btn1">Tap Me 💖</button>
         <button id="btn2" class="hidden">Tap again ခွေးပုလေး 💖</button>
 
@@ -66,7 +63,9 @@
         </video>
     </div>
 
-    <audio id="loveSong"><source src="Keenan_Te_-_Where_You_Are_(mp3.pm).mp3" type="audio/mpeg"></audio>
+    <audio id="loveSong" loop>
+        <source src="Keenan_Te_-_Where_You_Are_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
     <canvas id="fireworks"></canvas>
 
     <script>
@@ -100,18 +99,19 @@
             videoSection.classList.add("show");
             loveVideo.muted = false;
             loveVideo.play();
+            // Video လာနေချိန်မှာ နောက်ခံသီချင်းကို ခေတ္တတိုးထားချင်ရင် ဒီမှာ song.volume = 0.2 လို့ ရေးလို့ရပါတယ်
 
             loveVideo.onended = () => {
                 videoSection.classList.remove("show");
                 gallery.classList.remove("hidden");
-                // Video အပြီးမှာ Photo 9 ကိုပဲ ပြမယ်
                 slides.forEach(s => s.classList.remove("active"));
-                document.getElementById("photo9").classList.add("active");
+                const p9 = document.getElementById("photo9");
+                if(p9) p9.classList.add("active");
                 
                 setTimeout(() => {
                     gallery.classList.add("hidden");
                     ending.classList.remove("hidden");
-                    song.play();
+                    // သီချင်းက ပထမကတည်းက ဖွင့်ထားတာမို့ ဒီမှာ ထပ်ဖွင့်စရာမလိုတော့ပါဘူး
                     startFireworks();
                 }, 3000);
             };
